@@ -1,0 +1,1 @@
+# rfn-rabbitmq-rpc-app
