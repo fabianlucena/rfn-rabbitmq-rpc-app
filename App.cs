@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RFRabbitMQ;
-using RFRabbitMQClient.Types;
+using RFRabbitMQRpcClient.Types;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;

@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\rfn-rabbitmq-client\RFRabbitMQClient.csproj" />
+    <ProjectReference Include="..\rfn-rabbitmq-rpc-client\RFRabbitMQRpcClient.csproj" />
   </ItemGroup>
 
 </Project>
