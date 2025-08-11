@@ -1,5 +1,5 @@
 ﻿using RabbitMQ.Client.Events;
-using RFRpcRabbitMQApp.Types;
+using RFRabbitMQClient.Types;
 
 namespace RFRabbitMQRpcApp
 {
