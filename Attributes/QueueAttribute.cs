@@ -1,4 +1,4 @@
-﻿namespace RFRpcRabbitMQApp.Attributes
+﻿namespace RFRabbitMQRpcApp.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class Queue(string name)
