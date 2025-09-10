@@ -17,5 +17,14 @@ namespace RFRabbitMQRpcApp
                 Value = value
             };
         }
+
+        public static Result Error(string message)
+        {
+            return new Result()
+            {
+                Ok = false,
+                Error = message
+            };
+        }
     }
 }
