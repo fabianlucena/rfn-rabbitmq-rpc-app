@@ -22,10 +22,10 @@ namespace RFRabbitMQRpcApp
         private IConnection? _connection = null;
         private IChannel? _channel = null;
 
-        public App(RabbitMQOptions options, IServiceCollection services)
+        public App(RabbitMQOptions options, IServiceCollection? services)
         {
             Options = options;
-            Services = services;
+            Services = services ?? new ServiceCollection();
             ConnectionFactory = new ConnectionFactory
             {
                 HostName = Options.HostName,
@@ -35,15 +35,39 @@ namespace RFRabbitMQRpcApp
                 Password = Options.Password,
             };
 
+            if (!Services.Any(sd => sd.ServiceType == typeof(ILoggerFactory)))
+            {
+                Services.AddLogging(config =>
+                {
+                    config.ClearProviders();
+                    config.AddConsole();
+                    config.SetMinimumLevel(LogLevel.Information);
+                });
+            }
+
             using ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             Logger = loggerFactory.CreateLogger<App>();
         }
 
-        public static App Create(RabbitMQOptions options, IServiceCollection services)
+        public static IConfigurationBuilder CreateBuilder()
+        {
+            var Environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{Environment}.json", optional: true, reloadOnChange: true);
+
+            return builder;
+        }
+
+        public static App Create(RabbitMQOptions options, IServiceCollection? services = null)
             => new(options, services);
 
-        public static App Create(IConfiguration configuration, IServiceCollection services)
+        public static App Create(IConfiguration? configuration = null, IServiceCollection? services = null)
         {
+            configuration ??= CreateBuilder().Build();
+
             var options = new RabbitMQOptions(configuration.GetSection("RabbitMQ"));
             options.Configure(configuration.GetSection("RpcRabbitMQ"));
             return new(options, services);
