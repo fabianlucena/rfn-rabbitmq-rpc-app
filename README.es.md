@@ -1,27 +1,27 @@
 # RFRabbitMQRPCApp
 
-> 🇺🇸 English | 🇪🇸 [Versión en Español](README.es.md)
+> 🇪🇸 Español | 🇺🇸 [English Version](README.md)
 
-**RFRabbitMQRPCApp** is a .NET library for hosting and managing **RPC services** using **RabbitMQ** as the messaging middleware.
-It provides an abstraction that simplifies building strongly-typed RPC microservices, handling queue binding, dependency injection, logging,
-and message routing automatically.
+**RFRabbitMQRPCApp** es una librería .NET para publicar y gestionar **servicios RPC** utilizando **RabbitMQ** como middleware de mensajería.
+Proporciona una abstracción que simplifica la creación de microservicios RPC fuertemente tipados, manejando automáticamente el enlace de colas,
+inyección de dependencias, logging y enrutamiento de mensajes.
 
 ---
 
-## 🚀 Features
+## 🚀 Características
 
-- Host RPC services with simple attribute-based controllers.
-- Automatic RabbitMQ connection + channel management.
-- Queue routing using `[Queue("name")]`.
-- Support for dependency injection and logging (`ILogger`).
-- Built-in request/response serialization.
-- Works seamlessly with:
+- Publicar servicios RPC usando controladores con atributos.
+- Manejo automático de conexión y canales de RabbitMQ.
+- Enrutamiento de mensajes usando `[Queue("name")]`.
+- Soporte para DI e `ILogger`.
+- Serialización integrada para request/response.
+- Funciona junto con:
   - `RFRabbitMQ`
   - `RFRabbitMQRPCClient`
 
 ---
 
-## 📦 Installation
+## 📦 Instalación
 
 ### NuGet
 ```bash
@@ -35,9 +35,9 @@ dotnet add package RFRabbitMQRPCApp
 
 ---
 
-## 🔧 Configuration
+## 🔧 Configuración
 
-Example `appsettings.json`:
+Ejemplo de `appsettings.json`:
 
 ```json
 {
@@ -52,13 +52,11 @@ Example `appsettings.json`:
 
 ---
 
-# 🖥️ Example — Creating an RPC Microservice
-
-Below is a complete example based on real files.
+# 🖥️ Ejemplo — Crear un microservicio RPC
 
 ---
 
-## 1️⃣ Define a service
+## 1️⃣ Definir un servicio
 
 ```csharp
 internal interface IDemoService
@@ -74,8 +72,8 @@ public class DemoService : IDemoService
     {
         return new
         {
-            Property = "Property value",
-            OtherProperty = "Other property value "
+            Property = "Valor de propiedad",
+            OtherProperty = "Otro valor de propiedad"
         };
     }
 }
@@ -83,7 +81,7 @@ public class DemoService : IDemoService
 
 ---
 
-## 2️⃣ Create an RPC Controller
+## 2️⃣ Crear un controlador RPC
 
 ```csharp
 [RpcController]
@@ -104,7 +102,7 @@ internal class DemoController(
 
 ---
 
-## 3️⃣ Host the RPC Application
+## 3️⃣ Hospedar la aplicación RPC
 
 ```csharp
 var builder = RabbitMQRpcApp.CreateBuilder();
@@ -118,25 +116,25 @@ app.Run(app => app.Logger.LogInformation("Demo microservice initiated"));
 
 ---
 
-# 🧩 Use Cases
+# 🧩 Casos de uso
 
-- Microservices requiring synchronous RPC responses.
-- Real-time validations.
-- Pricing/Calculation engines.
-- Authentication/authorization RPC providers.
-- Request/response messaging without REST.
-
----
-
-# 🔍 Versioning
-
-Current version: **1.3.1**
+- Microservicios que requieren respuestas RPC síncronas.
+- Validaciones en tiempo real.
+- Motores de precios/cálculos.
+- Servicios RPC de autenticación/autorización.
+- Mensajería request/response sin usar REST.
 
 ---
 
-# 📚 Dependencies
+# 🔍 Versionado
 
-This package depends on:
+Versión actual: **1.3.1**
+
+---
+
+# 📚 Dependencias
+
+Este paquete depende de:
 
 - RabbitMQ.Client 7.2.0  
 - RFRabbitMQRPCClient 1.3.1  
@@ -146,12 +144,12 @@ This package depends on:
 
 ---
 
-# 📄 License
+# 📄 Licencia
 
-MIT License.
+Licencia MIT.
 
 ---
 
-# 🌐 Repository
+# 🌐 Repositorio
 
 https://github.com/fabianlucena/rfn-rabbitmq-rpc-app

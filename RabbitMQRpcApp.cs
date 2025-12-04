@@ -3,16 +3,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RFRabbitMQRpcApp.Attributes;
 using RFRabbitMQ;
 using RFRabbitMQRpcClient.Types;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using RFRabbitMQRpcApp.Attributes;
 
 namespace RFRabbitMQRpcApp
 {
-    public class App
+    public class RabbitMQRpcApp
     {
         public RabbitMQOptions Options { get; }
         private IServiceCollection Services { get; }
@@ -22,7 +22,7 @@ namespace RFRabbitMQRpcApp
         private IConnection? _connection = null;
         private IChannel? _channel = null;
 
-        public App(RabbitMQOptions options, IServiceCollection? services)
+        public RabbitMQRpcApp(RabbitMQOptions options, IServiceCollection? services)
         {
             Options = options;
             Services = services ?? new ServiceCollection();
@@ -46,30 +46,32 @@ namespace RFRabbitMQRpcApp
             }
 
             using ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
-            Logger = loggerFactory.CreateLogger<App>();
+            Logger = loggerFactory.CreateLogger<RabbitMQRpcApp>();
         }
 
-        public static IConfigurationBuilder CreateBuilder()
+        public static RabbitMQRpcAppBuilder CreateBuilder()
+            => new();
+
+        public static RabbitMQRpcApp Create(RabbitMQRpcAppBuilder builder)
         {
-            var Environment = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production";
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{Environment}.json", optional: true, reloadOnChange: true);
-
-            return builder;
+            var config = builder.Configuration();
+            var options = new RabbitMQOptions(config.GetSection("RabbitMQ"));
+            options.Configure(config.GetSection("RpcRabbitMQ"));
+            return new(options, builder.Services);
         }
 
-        public static App Create(RabbitMQOptions options, IServiceCollection? services = null)
+        public static RabbitMQRpcApp Create(RabbitMQOptions options, IServiceCollection? services = null)
             => new(options, services);
 
-        public static App Create(IConfiguration? configuration = null, IServiceCollection? services = null)
+        public static RabbitMQRpcApp Create(IConfiguration? configuration = null, IServiceCollection? services = null)
         {
-            configuration ??= CreateBuilder().Build();
-
-            var options = new RabbitMQOptions(configuration.GetSection("RabbitMQ"));
-            options.Configure(configuration.GetSection("RpcRabbitMQ"));
+            var options = new RabbitMQOptions();
+            if (configuration is not null)
+            {
+                options.Configure(configuration.GetSection("RabbitMQ"));
+                options.Configure(configuration.GetSection("RpcRabbitMQ"));
+            }
+            
             return new(options, services);
         }
 
@@ -253,14 +255,14 @@ namespace RFRabbitMQRpcApp
             }
         }
 
-        public void Run(Action<App>? onRun = null)
+        public void Run(Action<RabbitMQRpcApp>? onRun = null)
         {
             RunAsync(onRun)
                 .GetAwaiter()
                 .GetResult();
         }
 
-        public async Task RunAsync(Action<App>? onRun = null)
+        public async Task RunAsync(Action<RabbitMQRpcApp>? onRun = null)
         {
             await MapControllersAsync();
             onRun?.Invoke(this);
