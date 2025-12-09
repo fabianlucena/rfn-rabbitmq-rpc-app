@@ -1,6 +1,7 @@
 # RFRabbitMQRPCApp
 
-> 🇺🇸 English | 🇪🇸 [Versión en Español](README.es.md)
+> 🇺🇸 English | 🇪🇸 [Versión en Español](https://github.com/fabianlucena/rfn-rabbitmq-rpc-app/blob/main/README.es.md)
+> [Video tutorial](https://www.youtube.com/watch?v=hrU-upEMlPk)
 
 **RFRabbitMQRPCApp** is a .NET library for hosting and managing **RPC services** using **RabbitMQ** as the messaging middleware.
 It provides an abstraction that simplifies building strongly-typed RPC microservices, handling queue binding, dependency injection, logging,
@@ -130,7 +131,7 @@ app.Run(app => app.Logger.LogInformation("Demo microservice initiated"));
 
 # 🔍 Versioning
 
-Current version: **1.3.1**
+Current version: **1.3.3**
 
 ---
 
@@ -139,7 +140,7 @@ Current version: **1.3.1**
 This package depends on:
 
 - RabbitMQ.Client 7.2.0  
-- RFRabbitMQRPCClient 1.3.1  
+- RFRabbitMQRPCClient 1.3.3  
 - Microsoft.Extensions.Configuration.* 8.0.0  
 - Microsoft.Extensions.DependencyInjection 8.0.0  
 - Microsoft.Extensions.Logging 8.0.0  
