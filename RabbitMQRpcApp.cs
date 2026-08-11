@@ -33,6 +33,7 @@ namespace RFRabbitMQRpcApp
                 Ssl = Options.Ssl,
                 UserName = Options.UserName,
                 Password = Options.Password,
+                VirtualHost = Options.VirtualHost,
             };
 
             if (!Services.Any(sd => sd.ServiceType == typeof(ILoggerFactory)))

@@ -8,7 +8,7 @@
 
   <PropertyGroup>
 	<PackageId>RFRabbitMQRPCApp</PackageId>
-	<Version>1.3.3</Version>
+	<Version>1.3.5</Version>
 	<Authors>Fabian Lucena</Authors>
     <Description>Librería .NET para publicar y gestionar servicios RPC utilizando RabbitMQ como middleware de mensajería.</Description>
     <PackageTags>rpc;rabbitmq;messaging;dotnet;microservices;queue;broker:server;app</PackageTags>
@@ -27,15 +27,15 @@
 
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.1" />
-    <PackageReference Include="RabbitMQ.Client" Version="7.2.0" />
-    <PackageReference Include="RFRabbitMQRPCClient" Version="1.3.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.10" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.2.2" />
+    <PackageReference Include="RFRabbitMQRPCClient" Version="1.3.4" />
   </ItemGroup>
 
 </Project>
